@@ -5,24 +5,11 @@ import { DailyForecast } from '@/entities/weather/ui/DailyForecast';
 import { ForecastList } from '@/entities/weather/ui/ForecastList';
 import { WeatherCard } from '@/entities/weather/ui/WeatherCard';
 import { WeatherDateInfo } from '@/entities/weather/ui/WeatherDateInfo';
-import { getUserTimeZone } from '@/shared/lib/get-user-timezone';
-
-const timezone = getUserTimeZone();
+import { getWeather } from '@/shared/api/weather';
 
 export const WeatherContainer = async () => {
-  const cityResponse = await fetch(
-    'https://geocoding-api.open-meteo.com/v1/search?name=Moscow&format=json',
-    { cache: 'no-store' }
-  );
-  const city = (await cityResponse.json()).results[0];
+  const weatherData = await getWeather('Moscow');
 
-  const weatherResponse = await fetch(
-    `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&wind_speed_unit=ms&current=temperature_2m,apparent_temperature,wind_speed_10m,wind_direction_10m,pressure_msl,relative_humidity_2m,weather_code&timezone=${timezone}&hourly=temperature_2m,weather_code&daily=temperature_2m_mean,weather_code`,
-    { cache: 'no-store' }
-  );
-
-  const weatherData = await weatherResponse.json();
-  console.log(weatherData);
   const currentWeather = weatherData.current;
   const hourlyWeather = weatherData.hourly;
   const dailyWeather = weatherData.daily;
