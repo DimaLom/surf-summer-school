@@ -1,76 +1,48 @@
-WeatherCard;
-('use client');
-
-import { weatherDescriptions } from '@/shared/constants/WeatherDescriptions';
-import { WeatherData } from '@/shared/types/WeatherData';
-import { Button } from '@/shared/ui/Button';
-import { Loader } from '@/shared/ui/Loader';
+import { weatherDescription } from '@/entities/weather/constants/weather-description';
+import { CurrentWeather } from '@/entities/weather/types/WeatherApiResponse';
+import { Temperature } from '@/entities/weather/ui/Temperature';
+import { TempUnitSwitcher } from '@/entities/weather/ui/TempUnitSwitcher';
+import { WeatherAdditionalInfo } from '@/entities/weather/ui/WeatherAdditionalInfo';
 import Image from 'next/image';
-import { useState } from 'react';
 
-interface WeatherCardProps {
-  weather: WeatherData;
-  cityName: string;
-}
-export const WeatherCard: React.FC<WeatherCardProps> = ({
-  cityName,
-  weather,
-}) => {
-  const [currentWeather, setCurrentWeather] = useState(weather);
-  const [loading, setLoading] = useState(false);
+type WeatherCardProps = {
+  currentWeather: CurrentWeather;
+  minTemperature: number | null;
+};
 
-  const description = weatherDescriptions[currentWeather.weathercode];
+export const WeatherCard = async (props: WeatherCardProps) => {
+  const { currentWeather, minTemperature } = props;
 
-  const onRefresh = async () => {
-    try {
-      setLoading(true);
-      const cityResponse = await fetch(
-        'https://geocoding-api.open-meteo.com/v1/search?name=Moscow&format=json',
-        { cache: 'no-store' }
-      );
-      const city = (await cityResponse.json()).results[0];
+  const currentTemperature = Math.ceil(currentWeather.temperature_2m);
 
-      const weatherResponse = await fetch(
-        `https://api.open-meteo.com/v1/forecast?latitude=${city.latitude}&longitude=${city.longitude}&temperature_unit=celsius&current=temperature_2m,weathercode`,
-        { cache: 'no-store' }
-      );
-
-      const weatherData = await weatherResponse.json();
-
-      setCurrentWeather({
-        temperature: weatherData.current.temperature_2m,
-        weathercode: weatherData.current.weathercode,
-      });
-    } catch (error) {
-      console.error(error);
-    } finally {
-      setLoading(false);
-    }
-  };
+  const currentWeatherDescription =
+    weatherDescription[currentWeather.weather_code];
 
   return (
-    <div className="mx-auto max-w-sm rounded-lg bg-white p-4 shadow-md">
-      {loading ? (
-        <Loader />
-      ) : (
-        <>
-          <h2 className="text-xl font-bold">{cityName}</h2>
-          <div className="flex justify-between">
-            <div>
-              <p>Температура: {currentWeather.temperature}°C</p>
-              <p>Погода: {description}</p>
-              {currentWeather.icon && (
-                <Image
-                  src={currentWeather.icon}
-                  alt={description}
-                  className="h-16 w-16"
-                />
-              )}
-            </div>
-            <Button onClick={onRefresh}>Обновить</Button>
+    <>
+      <div className="flex w-[680px] justify-between rounded-3xl bg-white p-[24px] outline-2 outline-blue-100">
+        <div>
+          <div className="flex items-center gap-[18px]">
+            <Image
+              width={112}
+              src={currentWeatherDescription.icon}
+              alt={currentWeatherDescription.description}
+              title={currentWeatherDescription.description}
+            />
+            <Temperature
+              currentTemperature={currentTemperature}
+              minTemperature={minTemperature}
+            />
           </div>
-        </>
-      )}
-    </div>
+          <WeatherAdditionalInfo
+            humidity={currentWeather.relative_humidity_2m}
+            pressure={currentWeather.pressure_msl}
+            wind={currentWeather.wind_speed_10m}
+            windDirection={currentWeather.wind_direction_10m}
+          />
+        </div>
+        <TempUnitSwitcher />
+      </div>
+    </>
   );
 };
