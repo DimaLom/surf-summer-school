@@ -1,6 +1,6 @@
 import { ForecastItem } from '@/entities/weather/types/ForecastItem';
 import { HourlyWeather } from '@/entities/weather/types/WeatherApiResponse';
-import { parseISO, getHours, format, isSameDay } from 'date-fns';
+import { format, getHours, isSameDay, parseISO } from 'date-fns';
 
 export const getHourlyForecast = (data: HourlyWeather): ForecastItem[] => {
   const cards: ForecastItem[] = [];

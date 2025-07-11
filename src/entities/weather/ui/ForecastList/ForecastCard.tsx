@@ -21,7 +21,7 @@ export const ForecastCard = (props: ForecastCardProps) => {
         alt={image.description}
         title={image.description}
       />
-      <p className="text-semibold text-base text-violet-950">
+      <p className="text-base font-semibold text-violet-950">
         {getDisplayedTemp(item.temperature)}
       </p>
     </div>

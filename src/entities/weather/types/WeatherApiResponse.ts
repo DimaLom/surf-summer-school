@@ -28,6 +28,18 @@ export type HourlyWeather = {
   weather_code: number[];
 };
 
+export type DailyWeather = {
+  time: string[];
+  temperature_2m_mean: number[];
+  weather_code: number[];
+};
+
+export type DailyWeatherUnits = {
+  time: string;
+  temperature_2m_mean: string;
+  weather_code: string;
+};
+
 export type HourlyWeatherUnits = {
   time: string;
   temperature_2m: string;
@@ -46,4 +58,6 @@ export type WeatherApiResponse = {
   current: CurrentWeather;
   hourly: HourlyWeather;
   hourly_units: HourlyWeatherUnits;
+  daily: DailyWeather;
+  daily_units: DailyWeatherUnits;
 };
