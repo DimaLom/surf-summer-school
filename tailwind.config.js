@@ -3,10 +3,7 @@ const config = {
   theme: {
     extend: {},
   },
-  plugins: {
-    tailwindcss: {},
-    autoprefixer: {},
-  },
+  plugins: [],
 };
 
 export default config;
