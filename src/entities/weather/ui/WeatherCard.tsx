@@ -1,9 +1,21 @@
 import { weatherDescription } from '@/entities/weather/constants/weather-description';
-import { CurrentWeather } from '@/entities/weather/types/WeatherApiResponse';
-import { Temperature } from '@/entities/weather/ui/Temperature';
 import { TempUnitSwitcher } from '@/entities/weather/ui/TempUnitSwitcher';
+import { Temperature } from '@/entities/weather/ui/Temperature';
 import { WeatherAdditionalInfo } from '@/entities/weather/ui/WeatherAdditionalInfo';
+import sunny from '@/entities/weather/ui/icons/sunny.svg;
+
 import Image from 'next/image';
+
+type CurrentWeather = {
+  time: string;
+  temperature_2m: number;
+  apparent_temperature: number;
+  wind_speed_10m: number;
+  wind_direction_10m: number;
+  pressure_msl: number;
+  relative_humidity_2m: number;
+  weather_code: number;
+};
 
 type WeatherCardProps = {
   currentWeather: CurrentWeather;
@@ -20,7 +32,7 @@ export const WeatherCard = async (props: WeatherCardProps) => {
 
   return (
     <>
-      <div className="flex w-[680px] justify-between rounded-3xl bg-white p-[24px] outline-2 outline-blue-100">
+      <div className="flex w-[680px] justify-between rounded-3xl bg-white p-[24px]">
         <div>
           <div className="flex items-center gap-[18px]">
             <Image
