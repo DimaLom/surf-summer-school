@@ -8,9 +8,8 @@ interface TempUnitSwitcherProps {
 
 const spanClasses = 'text-lg font-medium text-violet-950';
 
-export const TempUnitSwitcher: React.FC<TempUnitSwitcherProps> = ({
-  onChange,
-}) => {
+export const TempUnitSwitcher = (props: TempUnitSwitcherProps) => {
+  const { onChange } = props;
   const [isCelsius, setIsCelsius] = useState(true);
 
   const handleToggle = () => {

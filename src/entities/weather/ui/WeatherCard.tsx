@@ -1,7 +1,7 @@
 import { weatherDescription } from '@/entities/weather/constants/weather-description';
 import { CurrentWeather } from '@/entities/weather/types/WeatherApiResponse';
 import { Temperature } from '@/entities/weather/ui/Temperature';
-import { TempUnitSwitcher } from '@/entities/weather/ui/TempUnitSwitcher';
+import { TempUnitSwitcher } from '@/features/toggle-units/ui/TempUnitSwitcher';
 import { WeatherAdditionalInfo } from '@/entities/weather/ui/WeatherAdditionalInfo';
 import Image from 'next/image';
 

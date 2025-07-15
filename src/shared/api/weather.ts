@@ -22,7 +22,7 @@ export const getWeather = async (cityName: string) => {
 
   const weatherResponse = await fetchWithErrorHandling(
     `https://api.open-meteo.com/v1/forecast?${params.toString()}`,
-    { cache: 'no-store' }
+    { cache: 'default' }
   );
 
   return weatherResponse;
