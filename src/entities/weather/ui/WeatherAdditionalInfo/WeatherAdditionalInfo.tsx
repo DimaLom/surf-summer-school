@@ -19,7 +19,6 @@ export const WeatherAdditionalInfo = (props: WeatherAdditionalInfoProps) => {
     { type: 'pressure', value: `${convertHpaToMmHg(pressure)}` },
     { type: 'humidity', value: `${humidity}${PERCENT_SIGN}` },
   ];
-
   return (
     <div className="mt-[20px] flex items-center justify-between">
       {info.map((item) => (

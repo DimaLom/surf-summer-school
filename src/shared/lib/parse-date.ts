@@ -6,7 +6,7 @@ export const parseDate = (dateStr: string): string => {
   const isCurrentDay = isToday(date);
 
   if (isCurrentDay) {
-    return `${format(date, 'EEEE, d MMMM yyyy, HH:mm', { locale: ru })}`;
+    return `сегодня ${format(date, 'EEEE, d MMMM yyyy, HH:mm', { locale: ru })}`;
   }
 
   return format(date, 'EEEE, d MMMM yyyy, HH:mm', { locale: ru });
