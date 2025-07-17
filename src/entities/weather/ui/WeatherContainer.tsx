@@ -15,6 +15,7 @@ export const WeatherContainer = async () => {
 
   const hourlyForecast = getHourlyForecast(hourlyWeather);
   const dailyForecast = getDailyForecast(dailyWeather);
+
   const minTemperature = hourlyForecast.at(-1)?.temperature ?? null;
 
   return (
