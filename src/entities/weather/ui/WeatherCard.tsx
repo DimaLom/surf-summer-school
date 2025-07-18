@@ -1,9 +1,8 @@
 import { weatherDescription } from '@/entities/weather/constants/weather-description';
 import { CurrentWeather } from '@/entities/weather/types/WeatherApiResponse';
-import { TempUnitSwitcher } from '@/entities/weather/ui/TempUnitSwitcher';
 import { Temperature } from '@/entities/weather/ui/Temperature';
+import { TempUnitSwitcher } from '@/features/toggle-units/ui/TempUnitSwitcher';
 import { WeatherAdditionalInfo } from '@/entities/weather/ui/WeatherAdditionalInfo';
-
 import Image from 'next/image';
 
 type WeatherCardProps = {
@@ -21,7 +20,7 @@ export const WeatherCard = async (props: WeatherCardProps) => {
 
   return (
     <>
-      <div className="flex w-[680px] justify-between rounded-3xl bg-white p-[24px]">
+      <div className="flex w-[680px] justify-between rounded-3xl bg-white p-[24px] outline-2 outline-blue-100">
         <div>
           <div className="flex items-center gap-[18px]">
             <Image

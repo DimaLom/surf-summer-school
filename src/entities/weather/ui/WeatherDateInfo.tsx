@@ -7,5 +7,5 @@ type WeatherDateInfoProps = {
 export const WeatherDateInfo = (props: WeatherDateInfoProps) => {
   const { date } = props;
 
-  return <p className="mb-[16px] text-xl text-violet-950">{parseDate(date)}</p>;
+  return <p className="text-xl text-violet-950">{parseDate(date)}</p>;
 };
